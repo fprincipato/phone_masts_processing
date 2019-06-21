@@ -1,4 +1,5 @@
 import csv
+import datetime
 
 
 class DataProcess(object):
@@ -26,3 +27,14 @@ class DataProcess(object):
             counts[item['Tenant Name']] = counts.get(item['Tenant Name'], 0) + 1
 
         return counts
+
+    def leases_between_dates(self):
+        start_date = datetime.datetime(1999, 6, 1)
+        end_date = datetime.datetime(2007,8,1)
+        data_filtered = []
+        for item in self._data:
+            cur_date = datetime.datetime.strptime(item['Lease Start Date'], '%d-%b-%y')
+            if cur_date >= start_date and cur_date <= end_date:
+                data_filtered.append(item)
+
+        return data_filtered

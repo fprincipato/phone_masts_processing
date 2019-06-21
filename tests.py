@@ -76,4 +76,62 @@ class TestDataProcess(unittest.TestCase):
         counts = self.data_process.generate_count()
         self.assertEqual(expected_counts, counts)
 
+    def test_leases_between_dates(self):
+        expected_data = [
+            {
+                'Property Name': 'Property1',
+                'Property Address [1]': 'Addr1_1',
+                'Property  Address [2]': 'Addr2_1',
+                'Property Address [3]': 'Addr3_1',
+                'Property Address [4]': 'Addr4_1',
+                'Unit Name': 'Unit1',
+                'Tenant Name': 'Tenant1',
+                'Lease Start Date': '1-Jan-00',
+                'Lease End Date':'1-Jan-10',
+                'Lease Years': '10',
+                'Current Rent': '12345',
+            },
+            {
+                'Property Name': 'Property2',
+                'Property Address [1]': 'Addr1_2',
+                'Property  Address [2]': 'Addr2_2',
+                'Property Address [3]': 'Addr3_2',
+                'Property Address [4]': 'Addr4_2',
+                'Unit Name': 'Unit2',
+                'Tenant Name': 'Tenant2',
+                'Lease Start Date': '30-Jan-04',
+                'Lease End Date':'29-Jan-29',
+                'Lease Years': '25',
+                'Current Rent': '12250',
+            },
+            {
+                'Property Name': 'Property3',
+                'Property Address [1]': 'Addr1_3',
+                'Property  Address [2]': '',
+                'Property Address [3]': '',
+                'Property Address [4]': '',
+                'Unit Name': 'Unit3',
+                'Tenant Name': 'Tenant1',
+                'Lease Start Date': '26-Jul-07',
+                'Lease End Date':'25-Jul-32',
+                'Lease Years': '25',
+                'Current Rent': '12000',
+            },
+            {
+                'Property Name': 'Property7',
+                'Property Address [1]': 'Addr1_7',
+                'Property  Address [2]': '',
+                'Property Address [3]': '',
+                'Property Address [4]': '',
+                'Unit Name': 'Unit7',
+                'Tenant Name': 'Tenant1',
+                'Lease Start Date': '31-Mar-00',
+                'Lease End Date':'30-Mar-30',
+                'Lease Years': '30',
+                'Current Rent': '10000',
+            },
+        ]
+        leases = self.data_process.leases_between_dates()
+        self.assertEqual(leases, expected_data)
+
 
