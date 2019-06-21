@@ -5,9 +5,18 @@ import pprint
 
 
 class DataProcess(object):
+
     def __init__(self, data_file_path, mode='all'):
+        modes = {
+            'section1': self.section_one,
+            'section2': self.section_two,
+            'section3': self.section_three,
+            'section4': self.section_four,
+            'all': self.all
+        }
         self._data_file_path = data_file_path
-        self._mode = mode
+        self.load_data_file()
+        modes[mode]()
 
     def load_data_file(self):
         with open(self._data_file_path, 'r') as f:
@@ -46,26 +55,37 @@ class DataProcess(object):
         return data_filtered
 
     def section_one(self):
+        print('Section 1 ----------')
         for i in self.sort_data()[:5]:
             print(i)
 
     def section_two(self):
-        for i, tot in self.filter_data():
+        print('Section 2 ----------')
+        items, tot = self.filter_data()
+        for i in items:
             print(i)
 
         print('Total: ', tot)
 
     def section_three(self):
-        pprint(self.generate_count())
+        print('Section 3 ----------')
+        pprint.pprint(self.generate_count())
 
     def section_four(self):
-        for i in self.test_leases_between_dates():
+        print('Section 4 ----------')
+        for i in self.leases_between_dates():
             print(i)
+
+    def all(self):
+        self.section_one()
+        self.section_two()
+        self.section_three()
+        self.section_four()
 
 if __name__=='__main__':
     parser = argparse.ArgumentParser(description='Process the csv data and output required stats')
     parser.add_argument('--mode', dest='mode', default='all', help='This program can be run in different mode. To only print the first 5 items from the csv sorted by Current rent use "section1". To only print a list of masts data for leases of 25 years use "section2". To only print a count of masts per tenants use "section3". To print stats of leases started between 1-Jun-99 and 31-Aug-07 use "section4". To print all stats use "all" (default)')
     args = parser.parse_args()
 
-    DataProcess('./fixture.csv', mode=args.mode)
+    DataProcess('./Test.csv', mode=args.mode)
 
