@@ -60,8 +60,10 @@ class TestDataProcess(unittest.TestCase):
                 'Current Rent': '12000',
             },
         ]
-        data_filtered = self.data_process.filter_data()
+        expected_total = 24250
+        data_filtered, total = self.data_process.filter_data()
         self.assertEqual(expected_data, data_filtered)
+        self.assertEqual(expected_total, total)
 
     def test_generate_count(self):
         expected_counts = {
