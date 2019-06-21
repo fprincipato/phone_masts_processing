@@ -9,3 +9,9 @@ class DataProcess(object):
         with open(self._data_file_path, 'r') as f:
             reader = csv.DictReader(f)
             self._data = [item for item in reader]
+
+    def sort_data(self):
+        return sorted(
+            self._data,
+            key=lambda x: float(x['Current Rent'])
+        )

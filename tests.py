@@ -22,3 +22,11 @@ class TestDataProcess(unittest.TestCase):
         ]
         self.assertEqual(len(data_process._data), 42)
         self.assertEqual(list(data_process._data[0].keys()), expected_keys)
+
+    def test_sort_data(self):
+        data_process = DataProcess('./Test.csv')
+        data_process.load_data_file()
+        sorted_data = data_process.sort_data()
+        rents = [float(x['Current Rent']) for x in sorted_data]
+        self.assertEqual(sorted(rents), rents)
+
