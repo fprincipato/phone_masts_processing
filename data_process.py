@@ -15,3 +15,6 @@ class DataProcess(object):
             self._data,
             key=lambda x: float(x['Current Rent'])
         )
+
+    def filter_data(self):
+        return [x for x in self._data if x['Lease Years'] == '22']

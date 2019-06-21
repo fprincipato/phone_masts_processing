@@ -1,0 +1,8 @@
+Property Name,Property Address [1],Property  Address [2],Property Address [3],Property Address [4],Unit Name,Tenant Name,Lease Start Date,Lease End Date,Lease Years,Current Rent
+Property1,Addr1_1,Addr2_1,Addr3_1,Addr4_1,Unit1,Tenant1,1-Jan-00,1-Jan-10,10,12345
+Property2,Addr1_2,Addr2_2,Addr3_2,Addr4_2,Unit2,Tenant2,30-Jan-04,29-Jan-29,25,12250
+Property3,Addr1_3,,,,Unit3,Tenant1,26-Jul-07,25-Jul-32,25,12000
+Property4,Addr1_4,Addr2_4,Addr3_4,Addr4_4,Unit4,Tenant4,31-Mar-15,30-Mar-30,15,15000
+Property5,Addr1_5,,,,Unit5,Tenant3,31-Mar-15,30-Mar-30,15,15000
+Property6,Addr1_6,Addr2_6,,,Unit6,Tenant6,31-Mar-15,30-Mar-20,5,13000
+Property7,Addr1_7,,,,Unit7,Tenant1,31-Mar-00,30-Mar-30,30,10000
