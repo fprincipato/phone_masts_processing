@@ -17,4 +17,11 @@ class DataProcess(object):
         )
 
     def filter_data(self):
-        return [x for x in self._data if x['Lease Years'] == '22']
+        return [x for x in self._data if x['Lease Years'] == '25']
+
+    def generate_count(self):
+        counts = {}
+        for item in self._data:
+            counts[item['Tenant Name']] = counts.get(item['Tenant Name'], 0) + 1
+
+        return counts

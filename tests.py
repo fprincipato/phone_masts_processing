@@ -5,6 +5,11 @@ from data_process import DataProcess
 
 class TestDataProcess(unittest.TestCase):
 
+
+    def setUp(self):
+        self.data_process = DataProcess('./fixture.csv')
+        self.data_process.load_data_file()
+
     def test_init_read(self):
         data_process = DataProcess('/path/to/file')
         self.assertEqual(
@@ -12,27 +17,21 @@ class TestDataProcess(unittest.TestCase):
             '/path/to/file'
         )
     def test_load_data_file(self):
-        data_process = DataProcess('fixture.csv')
-        data_process.load_data_file()
         expected_keys = [
             'Property Name', 'Property Address [1]', 'Property  Address [2]',
             'Property Address [3]', 'Property Address [4]',
             'Unit Name', 'Tenant Name', 'Lease Start Date',
             'Lease End Date', 'Lease Years', 'Current Rent',
         ]
-        self.assertEqual(len(data_process._data), 7)
-        self.assertEqual(list(data_process._data[0].keys()), expected_keys)
+        self.assertEqual(len(self.data_process._data), 7)
+        self.assertEqual(list(self.data_process._data[0].keys()), expected_keys)
 
     def test_sort_data(self):
-        data_process = DataProcess('./fixture.csv')
-        data_process.load_data_file()
-        sorted_data = data_process.sort_data()
+        sorted_data = self.data_process.sort_data()
         rents = [float(x['Current Rent']) for x in sorted_data]
         self.assertEqual(sorted(rents), rents)
 
     def test_filter_data(self):
-        data_process = DataProcess('./fixture.csv')
-        data_process.load_data_file()
         expected_data = [
             {
                 'Property Name': 'Property2',
@@ -61,8 +60,18 @@ class TestDataProcess(unittest.TestCase):
                 'Current Rent': '12000',
             },
         ]
-        data_filtered = data_process.filter_data()
+        data_filtered = self.data_process.filter_data()
         self.assertEqual(expected_data, data_filtered)
 
+    def test_generate_count(self):
+        expected_counts = {
+            'Tenant1': 3,
+            'Tenant2': 1,
+            'Tenant3': 1,
+            'Tenant4': 1,
+            'Tenant6': 1,
+        }
+        counts = self.data_process.generate_count()
+        self.assertEqual(expected_counts, counts)
 
 
