@@ -19,21 +19,39 @@ class DataProcess(object):
         modes[mode]()
 
     def load_data_file(self):
+        """
+        Load the data from the input file into a list of dictionaries
+        """
         with open(self._data_file_path, 'r') as f:
             reader = csv.DictReader(f)
             self._data = [item for item in reader]
 
     def sort_data(self):
+        """
+        Sort the data with respect to the Current Rent field
+        :return: Data sorted by Current Rent Field
+        :rtype: list
+        """
         return sorted(
             self._data,
             key=lambda x: float(x['Current Rent'])
         )
 
     def filter_data(self):
+        """
+        Filter the data by selecting only entries with 25 years of Lease
+        :return: Data filtered by selecting entries with Lease Years equal to 25
+        :rtype: list
+        """
         data_filtered = [x for x in self._data if x['Lease Years'] == '25']
         return data_filtered, sum([int(x['Current Rent']) for x in data_filtered])
 
     def generate_count(self):
+        """
+        Generate masts counts per Tenant
+        :return: Masts count per Tenant
+        :rtype: dict
+        """
         counts = {}
         for item in self._data:
             counts[item['Tenant Name']] = counts.get(item['Tenant Name'], 0) + 1
@@ -41,6 +59,12 @@ class DataProcess(object):
         return counts
 
     def leases_between_dates(self):
+        """
+        Filter the data by selecting only entries whose Lease Start Date is between start_date and end_date. 
+        Convert the dates to D/M/YYYY format
+        :return: Data filtered by selecting entries where Lease Start Date is between start_date and end_date.
+        :rtype: list
+        """
         start_date = datetime.datetime(1999, 6, 1)
         end_date = datetime.datetime(2007,8,1)
         data_filtered = []
@@ -55,11 +79,17 @@ class DataProcess(object):
         return data_filtered
 
     def section_one(self):
+        """
+        Print Section 1 stats
+        """
         print('Section 1 ----------')
         for i in self.sort_data()[:5]:
             print(i)
 
     def section_two(self):
+        """
+        Print Section 2 stats
+        """
         print('Section 2 ----------')
         items, tot = self.filter_data()
         for i in items:
@@ -68,15 +98,24 @@ class DataProcess(object):
         print('Total: ', tot)
 
     def section_three(self):
+        """
+        Print Section 3 stats
+        """
         print('Section 3 ----------')
         pprint.pprint(self.generate_count())
 
     def section_four(self):
+        """
+        Print Section 4 stats
+        """
         print('Section 4 ----------')
         for i in self.leases_between_dates():
             print(i)
 
     def all_sections(self):
+        """
+        Print in turn all sections stats
+        """
         self.section_one()
         self.section_two()
         self.section_three()
