@@ -1,16 +1,19 @@
-import unittest
+from unittest import TestCase
+from unittest.mock import MagicMock, patch
 
 from data_process import DataProcess
 
 
-class TestDataProcess(unittest.TestCase):
+class TestDataProcess(TestCase):
 
 
     def setUp(self):
         self.data_process = DataProcess('./fixture.csv')
         self.data_process.load_data_file()
 
-    def test_init_read(self):
+    @patch('data_process.DataProcess.load_data_file')
+    @patch('data_process.DataProcess.all_sections')
+    def test_init_read(self, _, __):
         data_process = DataProcess('/path/to/file')
         self.assertEqual(
             data_process._data_file_path,
@@ -134,4 +137,32 @@ class TestDataProcess(unittest.TestCase):
         leases = self.data_process.leases_between_dates()
         self.assertEqual(leases, expected_data)
 
+    @patch('data_process.DataProcess.load_data_file')
+    @patch('data_process.DataProcess.all_sections')
+    def test_all_sections(self, mock_all_sections, _):
+        data_process = DataProcess('/path/to/file')
+        mock_all_sections.assert_called()
 
+    @patch('data_process.DataProcess.load_data_file')
+    @patch('data_process.DataProcess.section_one')
+    def test_section_one(self, mock_section_one, _):
+        data_process = DataProcess('/path/to/file', 'section1')
+        mock_section_one.assert_called()
+
+    @patch('data_process.DataProcess.load_data_file')
+    @patch('data_process.DataProcess.section_two')
+    def test_section_two(self, mock_section_two, _):
+        data_process = DataProcess('/path/to/file', 'section2')
+        mock_section_two.assert_called()
+
+    @patch('data_process.DataProcess.load_data_file')
+    @patch('data_process.DataProcess.section_three')
+    def test_section_three(self, mock_section_three, _):
+        data_process = DataProcess('/path/to/file', 'section3')
+        mock_section_three.assert_called()
+
+    @patch('data_process.DataProcess.load_data_file')
+    @patch('data_process.DataProcess.section_four')
+    def test_section_four(self, mock_section_four, _):
+        data_process = DataProcess('/path/to/file', 'section4')
+        mock_section_four.assert_called()

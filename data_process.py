@@ -12,7 +12,7 @@ class DataProcess(object):
             'section2': self.section_two,
             'section3': self.section_three,
             'section4': self.section_four,
-            'all': self.all
+            'all': self.all_sections
         }
         self._data_file_path = data_file_path
         self.load_data_file()
@@ -76,7 +76,7 @@ class DataProcess(object):
         for i in self.leases_between_dates():
             print(i)
 
-    def all(self):
+    def all_sections(self):
         self.section_one()
         self.section_two()
         self.section_three()
@@ -84,7 +84,7 @@ class DataProcess(object):
 
 if __name__=='__main__':
     parser = argparse.ArgumentParser(description='Process the csv data and output required stats')
-    parser.add_argument('--mode', dest='mode', default='all', help='This program can be run in different mode. To only print the first 5 items from the csv sorted by Current rent use "section1". To only print a list of masts data for leases of 25 years use "section2". To only print a count of masts per tenants use "section3". To print stats of leases started between 1-Jun-99 and 31-Aug-07 use "section4". To print all stats use "all" (default)')
+    parser.add_argument('--mode', dest='mode', default='all', help='This program can be run in different mode. To only print the first 5 items from the csv sorted by Current rent use "section1". To only print a list of masts data for leases of 25 years use "section2". To only print a count of masts per tenants use "section3". To print stats of leases started between 1-Jun-99 and 31-Aug-07 use "section4". To print all stats use "all" (default)', choices=['all', 'section1', 'section2', 'section3', 'section4'])
     args = parser.parse_args()
 
     DataProcess('./Test.csv', mode=args.mode)
